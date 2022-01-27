@@ -6,15 +6,25 @@ function Answer(props) {
 //const [isPressed, setIsPressed] = React.useState(false)
 
     let styling= {
-        backgroundColor: props.isSelected ? "hsl(269, 62%, 27%)" : "",
-        color: props.isSelected ? "white" : ""
+        backgroundColor: (props.scoreQuiz && props.correctAnswer) ? "hsl(112, 49%, 45%)" :
+                            (props.isSelected && props.scoreQuiz) ? "red" : 
+                            props.isSelected ? "hsl(269, 62%, 27%)"  :
+                                                                      "",
+        color: props.isSelected ? "white" :
+                props.correctAnswer && props.scoreQuiz ? "white" : "",
+        borderColor: (props.scoreQuiz && props.correctAnswer) ? "white" :
+                        (props.isSelected && props.scoreQuiz) ? "white" : 
+                        props.isSelected ? "hsl(269, 62%, 27%)"  :
+                                                  "",
+        opacity:  (props.scoreQuiz && !props.correctAnswer) ? ".4" :
+                  (props.isSelected && props.scoreQuiz && !props.correctAnswer) ? ".4" : 
+                                  "1"
     }
-
+    
   return <div>
-      <button className='answers' value={props.value}
-                                                        onClick={(e) => {
-                                                        props.selectedAnswer()
-                                                        props.chooseAnswer(e, props.questionNumber)}}
+      <button className='answers' value={props.value}   
+                                                        onClick={props.scoreQuiz ? undefined : (e) => {props.selectedAnswer()}}
+                                                
                                                         style={styling}
                                                         >{he.decode(props.value)}</button>
   </div>;
