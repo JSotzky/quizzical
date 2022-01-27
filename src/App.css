@@ -96,3 +96,21 @@ body {
   color: white;
   background-color: hsl(269, 62%, 40%);
 }
+
+.mainMenuButton{
+  background: none;
+  color: hsl(269, 62%, 27%);
+  border-color: hsl(269, 62%, 27%);
+  margin: .5rem 1rem 0 0rem;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 3px;
+  transition: all .2s;
+  align-self: center;
+  
+}
+.mainMenuButton:hover{
+  color: white;
+  background-color: hsl(269, 62%, 40%);
+}
+

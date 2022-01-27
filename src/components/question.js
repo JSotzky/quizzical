@@ -4,17 +4,11 @@ import Answer from '../components/answer'
 import {nanoid} from 'nanoid'
 
 function Question(props) {
-    //This is an array of all the answers incorrect+correct
-    const answerArray = props.incorrectAnswers.concat(props.correctAnswer);
+    
     //this is the array of answer objects to replace old array
     const [answerState, setAnswerState] = React.useState(createAnswerState())
-    //This bad boy is currently randomizing the answers
-    React.useMemo(() => {
-        for (let i = answerArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [ answerArray[i],  answerArray[j]] = [ answerArray[j],  answerArray[i]];
-        }
-    }, [])
+    
+    
     //This is going to take all the answers, make them objects, 
     //so I/They know the state of other answers passed down so only one can be selected at a time. Plus maybe its better to format it this way.
     function createAnswerState(){
@@ -24,21 +18,29 @@ function Question(props) {
                 isSelected: false,
                 key: nanoid(),
                 questionNumber: props.questionNumber,
-                value: props.incorrectAnswers[i]
+                value: props.incorrectAnswers[i],
+                correctAnswer: false,
+                corrected: false
             })
         };
         newAnswers.push({
                 isSelected: false,
                 key: nanoid(),
                 questionNumber: props.questionNumber,
-                value: props.correctAnswer});
+                value: props.correctAnswer,
+                correctAnswer: true,
+                corrected: false
+            });
+        //This bad boy is currently randomizing the answers
         for (let i = newAnswers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [ newAnswers[i],  newAnswers[j]] = [ newAnswers[j],  newAnswers[i]];
         };
         return newAnswers
     };
-console.log(answerState)
+
+
+
 
 function selectedAnswer(key){
     setAnswerState(oldAnswers => oldAnswers.map(answer => {
